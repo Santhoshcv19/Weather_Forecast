@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Forecast</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container" style="text-align: center;">
+        <h1>Weather Forecast App</h1>
+        <form method="post" action="{% url 'index' %}" class="form-control">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit" class="btn btn-outline-primary">Get Weather</button>
+        </form>
+
+        <div class="data" style="margin-top: 5%;">
+            {% if weather_data %}
+                <h3>Weather for {{ weather_data.location.name }}</h3>
+                <p> {% if weather_data.current.temp_c > 25.0 %} <i class="fa fa-sun-o"></i> {% else %} <i class="fa fa-snowflake-o"></i> {% endif %}  Temperature (in Celcius): {{ weather_data.current.temp_c }}</p>
+                <p>Humidity: {{ weather_data.current.humidity }}</p>
+                <p>Wind Speed (in KPH): {{ weather_data.current.wind_kph }}</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
